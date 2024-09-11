@@ -12,34 +12,7 @@ def fetch_webpage(url):
     return BeautifulSoup(response.content, "html.parser")
 
 
-# Extract audio links from the HTML <ul> element
-def extract_audio_links(ul_element):
-    """Extract and clean audio links from a <ul> element."""
-    audio_links = []
-    audios = ul_element.find_all(class_="audio-button")
-    for audio in audios:
-        audio_element = audio.find("audio")
-        if audio_element:
-            audio_url = audio_element.get("src")
-            trimmed_url = audio_url.split(".mp3")[0] + ".mp3"
-            audio_links.append(trimmed_url)
-    return audio_links
-
-
-# Extract quotes from the HTML <ul> element
-def clean_quotes(quotes):
-    """Clean and extract quotes from a <ul> element."""
-    clean_quotes = []
-    for quote in quotes:
-        if quote.find("audio"):
-            clean_quote = quote.text.replace("\u00a0", " ").strip().strip('"')
-            if clean_quote:
-                clean_quotes.append(clean_quote)
-    return clean_quotes
-
-
 all_quotes = []  # Global list to keep track of existing quotes
-
 
 # Function to extract quotes and audio links from a <li> element
 def extract_quotes_and_audio_links(li):
