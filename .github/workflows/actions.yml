@@ -2,7 +2,7 @@ name: Valorant Wiki Scraper
 
 on:
   schedule:
-    - cron: '*/2 * * * *' # Runs every 2 minutes
+    - cron: '0 0 * * 5' # Runs every 2 minutes
   workflow_dispatch: # Allows manual triggering of the action
 
 jobs:
