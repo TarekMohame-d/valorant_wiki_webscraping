@@ -1,0 +1,29 @@
+name: Valorant Wiki Scraper
+
+on:
+  schedule:
+    - cron: '*/2 * * * *' # Runs every 2 minutes
+  workflow_dispatch: # Allows manual triggering of the action
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 gspread oauth2client
+
+      - name: Run scraper
+        env:
+          GOOGLE_SHEETS_CREDS: ${{ secrets.GOOGLE_SHEETS_CREDS }}  # Use the Google Sheets API credentials secret
+        run: python valorant_wiki_webscraper.py
