@@ -105,7 +105,7 @@ def batch_update_data(worksheet, data):
 def init_google_sheets():
     """Initialize the Google Sheets API client."""
     # Get credentials from GitHub Actions environment variable (e.g., 'GOOGLE_SHEETS_CREDENTIALS')
-    credentials_data = os.getenv("GOOGLE_SHEETS_CREDENTIALS")
+    credentials_data = os.getenv("GOOGLE_SHEET_CREDENTIALS")
     
     if not credentials_data:
         raise ValueError("Google Sheets credentials not found in environment variables.")
