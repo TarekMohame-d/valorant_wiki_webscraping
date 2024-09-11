@@ -25,5 +25,5 @@ jobs:
 
       - name: Run scraper
         env:
-          GOOGLE_SHEETS_CREDS: ${{ secrets.GOOGLE_SHEETS_CREDS }}  # Use the Google Sheets API credentials secret
+          GOOGLE_SHEET_CREDENTIALS: ${{ secrets.GOOGLE_SHEET_CREDENTIALS }}
         run: python valorant_wiki_webscraper.py

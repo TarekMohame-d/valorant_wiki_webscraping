@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import os
 
 
 # Function to fetch webpage content
@@ -130,19 +131,7 @@ def batch_update_data(worksheet, data):
 # Initialize Google Sheets API credentials
 def init_google_sheets():
     """Initialize the Google Sheets API client."""
-    credentials_data = {
-        "type": "service_account",
-        "project_id": "valorant-wiki-435215",
-        "private_key_id": "8b3cbea9d22e8253d4397a3e547fce88d28216bf",
-        "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQClDQ++7qQEo3HT\n5i5j3D/i81abznV9c0+66RYntMFNfDy/+AXXt+NpHnq20e7+EtHMYVfMR+ALT4Iv\n1dnmpHmkBQpn15Biejz+cavhZCApGi7YZ3gFxchjyt1d+QAjTUWa9EbqtHiyZfyr\nlDUr4AKdsoABipe8qPFmLXL3UbxrI10QKWipIeh3HjPSMzd+mUCAz6rmG66+sYZj\n2faiBCQ92jS/+69pNDTg9WWEBSInBfK3dX/05IHEY/qrxZ60z9R3/njE5Pk2gOun\np9FEP7I5LWUkrfSsyGNxhEmTA4ScTfP48MxmN6rxbyk21dFs5z9OU4mg07aO7U9A\n7Kjxm/D5AgMBAAECggEAM3sO+b1ioGXAl9j4iEJHFQlUbtWnVOFWMZUJSYo6Lup8\n4l3AqMfdIUkV+pchhdMl6CtGoNucWLrMfxIjXKrZnBzMYZZdnTHGe5DGDU/XLirS\nCMLBL3/A4MuCX5DOh7RO7SWbRxLSgMaJ2JSqPwyolDp8bb6mVHyXiwjLDrRKYloN\ndXQdNvlGCk9n7FhPibQQGZXJtExeu9C9SxhEYJmkcHzHsC8/RM+cbKYp5n9a/kq4\n7mVvvlzAZsJuSnSYOkKvOF40nN7xOHiLQSmRYiF6G2XZ8oIXN4/PZYVRrnkBokax\ndOJx7uauomQ0sthC/uxqgMFxwuy60qk5SEgpAYUVDwKBgQDaB9qec6HxS8KtXZ74\n/jgfIQ8dgcstCu/my3dIKAsCFDsfjg6q1MyRnR0UtLrAvzw9SokbeWbT15xuUZo9\nBBiWr3IWQJcVmk8XuO1FCkdfic5lDoQI/VnYRkcZ0KPRKsAONZmu1VRjRFpv46YP\nPiZsINwmBC41RIaFkW6N/IsIFwKBgQDBy0rK8l+yy8jnJYI+Nph/2YuGJVn3wMZf\n7xQ1mdOZkqwi6j3tRDMF/bl9BAyNR6GK+1FX0T1chyv8huriEI8/ZfUtAk8nICoX\nfPrGMG3HP95F1PpttYSV6PL+m2K8kD03ypFO9FktGafjDxvsWNoqzxbwVzDoYsP2\ntSQ1LE5pbwKBgQCcDvUXZ1LpwL12k8VfGa+X8HS+PRHtip+OheI6HpdKhKqQ+oBb\nHHfUXi3bjUUDA56djEU5Chtk1DZe7D/HHrBu4uN5NAAwcUPdifsi6KmPo7a8tLgj\nKxxs5lisDJ/E7qGLSihXcNC3QMyuu7Y3wNeFm7uX5nQgooza++6y6KmnPwKBgQCT\nAhcrmu8zn9k4V0DU1u+aVLm9uknkYo1ZqvBGtPlKj3QbTFxLx6d5DP8Psemfps4J\nsxoCpwyIS1X3y5UUhoFUE5EIYq8OvBySEtHdVFGCi5WenbCXVtJMMhlbQR6Gcliu\nIPFX1o5rYwHzgbup78EYJl59VXcZYgrL9J+R4plc6wKBgCvH9cF+69fGqvWXcSIS\nYif6gNf1nqyDfwJ9P6tx5KFzF3tRjC9aa9lWmDmCfnqdgCszM/24YOw9ptGeNu7y\nQdtnhIcrFbuArl3ez8wWbQ3HuOwbD4IFM361JaZ6whYqgagbQGfw3JK5tjJc5PfP\nGF2gdMu84xlDu+PoM/40R1vi\n-----END PRIVATE KEY-----\n",
-        "client_email": "valorant-wiki@valorant-wiki-435215.iam.gserviceaccount.com",
-        "client_id": "108509723060752063426",
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://oauth2.googleapis.com/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/valorant-wiki%40valorant-wiki-435215.iam.gserviceaccount.com",
-        "universe_domain": "googleapis.com",
-    }
+    credentials_data = os.environ.get("GOOGLE_SHEETS_CREDS")
     scope = [
         "https://spreadsheets.google.com/feeds",
         "https://www.googleapis.com/auth/drive",
