@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import os
-
+import json
 
 # Function to fetch webpage content
 def fetch_webpage(url):
@@ -104,7 +104,13 @@ def batch_update_data(worksheet, data):
 # Initialize Google Sheets API credentials
 def init_google_sheets():
     """Initialize the Google Sheets API client."""
-    credentials_data = os.environ.get("GOOGLE_SHEETS_CREDS")
+    # Get credentials from GitHub Actions environment variable (e.g., 'GOOGLE_SHEETS_CREDENTIALS')
+    credentials_data = os.getenv("GOOGLE_SHEETS_CREDENTIALS")
+    
+    if not credentials_data:
+        raise ValueError("Google Sheets credentials not found in environment variables.")
+    
+    credentials_data = json.loads(credentials_data)  # Convert the JSON string to a dictionary
     scope = [
         "https://spreadsheets.google.com/feeds",
         "https://www.googleapis.com/auth/drive",
